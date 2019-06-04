@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { Table } from 'antd';
+import {createFragmentContainer} from 'react-relay'
+import graphql from 'babel-plugin-relay/macro';
 
 const columns = [
     {
@@ -19,29 +21,20 @@ const columns = [
     },
 ];
 
-const data = [
-    {
-        name:"Daily data enhancements",
-        pbi:"VN-2739",
-        status:"Local"
-    },
-    {
-        name:"US Reporting",
-        pbi:"VN-2844",
-        status:"Local"
-    },
-    {
-        name:"Misc Bugs/Regression",
-        pbi:"",
-        key:"Local"
-    },
-];
-
 class DevelopmentPlan extends Component {
 
     render() {
-        return <Table columns={columns} rowKey="id" dataSource={data} size={"small"} pagination={false}/>
+        return <Table columns={columns} rowKey='id' dataSource={this.props.developmentPlanningQuery.deliverables} size={'small'} pagination={false} title={()=>'Technical Forecasting 2019'} bordered />
     }
 }
 
-export default DevelopmentPlan
+export default createFragmentContainer(DevelopmentPlan, graphql`
+    fragment DevelopmentPlan_developmentPlanningQuery on DevelopmentPlanningQuery {
+        deliverables {
+            id
+            name
+            pbi
+            status
+        }
+    }
+`)

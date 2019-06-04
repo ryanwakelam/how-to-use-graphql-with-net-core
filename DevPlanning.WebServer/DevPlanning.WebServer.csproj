@@ -6,9 +6,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="GraphQL.Server.Transports.AspNetCore" Version="3.4.0" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
     <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="2.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DevelopmentPlanning.Schema\DevelopmentPlanning.Schema.csproj" />
   </ItemGroup>
 
 </Project>

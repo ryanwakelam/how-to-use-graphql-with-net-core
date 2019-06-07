@@ -6,6 +6,7 @@ import {QueryRenderer} from 'react-relay'
 import environment from "./components/Environment";
 import graphql from 'babel-plugin-relay/macro';
 import DeliverableDetails from "./components/DeliverableDetails";
+import CreateDeliverable from "./components/CreateDeliverable";
 
 const { Content } = Layout;
 
@@ -59,6 +60,7 @@ class App extends Component {
                                         <div>
                                             <DeliverableDetails developmentPlanningQuery={props} closeDrawer={this.closedDrawer} deliverableId={this.state.deliverableId} showDrawer={this.state.showDrawer}/>
                                             <DevelopmentPlan developmentPlanningQuery={props} deliverableSelected={this.deliverableSelected}/>
+                                            <CreateDeliverable />
                                         </div>
                                     )
                                 }

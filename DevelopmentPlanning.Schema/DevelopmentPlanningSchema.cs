@@ -14,6 +14,7 @@ namespace DevelopmentPlanning.Schema
         public DevelopmentPlanningSchema()
         {
             Query = new DevelopmentPlanningQuery(_deliverables);
+            Mutation = new DevelopmentPlanningMutation(_deliverables);
         }
     }
 }

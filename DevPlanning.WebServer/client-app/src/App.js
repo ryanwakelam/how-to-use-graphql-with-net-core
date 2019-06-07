@@ -10,8 +10,9 @@ import DeliverableDetails from "./components/DeliverableDetails";
 const { Content } = Layout;
 
 const AppQuery = graphql`
-    query AppQuery {
+    query AppQuery($id: ID!) {
         ...DevelopmentPlan_developmentPlanningQuery
+        ...DeliverableDetails_developmentPlanningQuery @arguments(id: $id)
     }
 `;
 
@@ -49,6 +50,7 @@ class App extends Component {
                         <QueryRenderer
                             environment={environment}
                             query={AppQuery}
+                            variables={{id: 1}}
                             render={({error, props}) => {
                                 if (error) {
                                     return <div>{error.message}</div>

@@ -1,5 +1,17 @@
 import React, { Component } from 'react';
 import {Input} from 'antd';
+import {commitMutation} from 'react-relay'
+import graphql from 'babel-plugin-relay/macro';
+import environment from "./Environment";
+
+const createDeliverableMutation = graphql`
+    mutation CreateDeliverableMutation($deliverable: DeliverableInput!){
+        createDeliverable(deliverable: $deliverable){
+            id
+            name
+        }
+    }
+`;
 
 class CreateDeliverable extends Component {
 
@@ -22,6 +34,23 @@ class CreateDeliverable extends Component {
                 name: name
             }
         };
+
+        commitMutation(
+            environment,
+            {
+                mutation: createDeliverableMutation,
+                variables: variables,
+                updater: store =>{
+                    const newDeliverable = store.getRootField('createDeliverable');
+                    const root = store.getRoot();
+                    const deliverables = root.getLinkedRecords('deliverables') || [];
+                    const newDeliverables = [...deliverables, newDeliverable];
+                    root.setLinkedRecords(newDeliverables, 'deliverables');
+                },
+                onCompleted: (response, errors) => {},
+                onError: err => console.error(err),
+            },
+        );
     }
 
     updateInputValue(evt){

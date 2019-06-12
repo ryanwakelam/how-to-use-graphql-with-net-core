@@ -1,8 +1,9 @@
 # source: http://localhost:5000/graphql
-# timestamp: Fri Jun 07 2019 14:24:20 GMT-0600 (Mountain Daylight Time)
+# timestamp: Wed Jun 12 2019 09:43:00 GMT-0600 (Mountain Daylight Time)
 
 schema {
   query: DevelopmentPlanningQuery
+  mutation: DevelopmentPlanningMutation
 }
 
 """
@@ -27,12 +28,23 @@ scalar DateTimeOffset
 
 scalar Decimal
 
+input DeliverableInput {
+  name: String!
+  pbi: String = null
+  status: String = null
+  description: String = null
+}
+
 type DeliverableType {
   description: String!
   id: ID
   name: String!
   pbi: String!
   status: String!
+}
+
+type DevelopmentPlanningMutation {
+  createDeliverable(deliverable: DeliverableInput!): DeliverableType
 }
 
 type DevelopmentPlanningQuery {

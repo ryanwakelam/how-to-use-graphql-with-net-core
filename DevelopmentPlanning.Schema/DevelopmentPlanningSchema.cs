@@ -6,6 +6,7 @@
         {
             Query = new DevelopmentPlanningQuery(developmentPlanningRepo);
             Mutation = new DevelopmentPlanningMutation(developmentPlanningRepo);
+            Subscription = new DevelopmentPlanningSubscription(developmentPlanningRepo);
         }
     }
 }

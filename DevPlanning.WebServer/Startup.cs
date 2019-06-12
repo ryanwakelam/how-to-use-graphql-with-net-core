@@ -21,7 +21,8 @@ namespace DevPlanning.WebServer
             services.AddSingleton<DevelopmentPlanningRepo>();
             services.AddSingleton<DevelopmentPlanningSchema>();
 
-            services.AddGraphQL(options => { options.ExposeExceptions = true; });
+            services.AddGraphQL(options => { options.ExposeExceptions = true; })
+                .AddWebSockets();
         
             services.AddSpaStaticFiles(configuration => { configuration.RootPath = "client-app/build"; });
         }
@@ -34,6 +35,8 @@ namespace DevPlanning.WebServer
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseWebSockets();
+            app.UseGraphQLWebSockets<DevelopmentPlanningSchema>("/graphql");
             app.UseGraphQL<DevelopmentPlanningSchema>("/graphql");
             
             app.UseSpa(spa =>

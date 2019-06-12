@@ -1,10 +1,15 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reactive.Linq;
+using System.Reactive.Subjects;
 
 namespace DevelopmentPlanning.Schema
 {
     public class DevelopmentPlanningRepo
     {
+        private readonly ISubject<Deliverable> _deliverableStream = new ReplaySubject<Deliverable>(0);
+        
         private List<Deliverable> _deliverables = new List<Deliverable>
         {
             new Deliverable{Id = "1", Name = "Daily data enhancements", PBI = "VN-2739", Status = "Completed", Description = "Long clothes lanyard Plate Fleet barkadeer bucko Shiver me timbers Sea Legs matey piracy clipper. "},
@@ -14,9 +19,15 @@ namespace DevelopmentPlanning.Schema
 
         public List<Deliverable> Deliverables => _deliverables.ToList();
 
+        public IObservable<Deliverable> SubscribeDeliverable()
+        {
+            return _deliverableStream.AsObservable();
+        }
+        
         public void AddDeliverable(Deliverable deliverable)
         {
             _deliverables.Add(deliverable);
+            _deliverableStream.OnNext(deliverable);
         }
     }
 }

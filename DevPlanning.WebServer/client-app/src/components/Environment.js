@@ -1,3 +1,4 @@
+import { SubscriptionClient } from 'subscriptions-transport-ws'
 const {
     Environment,
     Network,
@@ -21,7 +22,17 @@ const fetchQuery = (operation, variables) => {
         return response.json()
     })};
 
-const network = Network.create(fetchQuery);
+const setupSubscription = (config, variables, cacheConfig, observer) => {
+    const query = config.text;
+
+    const subscriptionClient = new SubscriptionClient('wss://localhost:5001/graphql', {reconnect: true});
+
+    subscriptionClient.subscribe({query, variables}, (error, result) => {
+        observer.onNext({data: result})
+    })
+};
+
+const network = Network.create(fetchQuery, setupSubscription);
 
 const environment = new Environment({
     network,

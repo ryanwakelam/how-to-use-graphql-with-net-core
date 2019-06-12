@@ -41,11 +41,11 @@ class CreateDeliverable extends Component {
                 mutation: createDeliverableMutation,
                 variables: variables,
                 updater: store =>{
-                    const newDeliverable = store.getRootField('createDeliverable');
-                    const root = store.getRoot();
-                    const deliverables = root.getLinkedRecords('deliverables') || [];
-                    const newDeliverables = [...deliverables, newDeliverable];
-                    root.setLinkedRecords(newDeliverables, 'deliverables');
+                    // const newDeliverable = store.getRootField('createDeliverable');
+                    // const root = store.getRoot();
+                    // const deliverables = root.getLinkedRecords('deliverables') || [];
+                    // const newDeliverables = [...deliverables, newDeliverable];
+                    // root.setLinkedRecords(newDeliverables, 'deliverables');
                 },
                 onCompleted: (response, errors) => {},
                 onError: err => console.error(err),

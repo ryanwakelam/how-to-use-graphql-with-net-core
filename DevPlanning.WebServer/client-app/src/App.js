@@ -7,6 +7,7 @@ import environment from "./components/Environment";
 import graphql from 'babel-plugin-relay/macro';
 import DeliverableDetails from "./components/DeliverableDetails";
 import CreateDeliverable from "./components/CreateDeliverable";
+import DeliverableAddedSubscription from "./subscriptions/DeliverableAddedSubscription";
 
 const { Content } = Layout;
 
@@ -30,6 +31,10 @@ class App extends Component {
         this.closedDrawer = this.closedDrawer.bind(this);
     }
 
+    componentDidMount() {
+        DeliverableAddedSubscription();
+    }
+    
     deliverableSelected(deliverableId){
         this.setState({
             deliverableId: deliverableId,

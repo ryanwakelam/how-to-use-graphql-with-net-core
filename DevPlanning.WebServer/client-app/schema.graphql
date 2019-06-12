@@ -1,9 +1,10 @@
 # source: http://localhost:5000/graphql
-# timestamp: Wed Jun 12 2019 09:43:00 GMT-0600 (Mountain Daylight Time)
+# timestamp: Wed Jun 12 2019 13:35:17 GMT-0600 (Mountain Daylight Time)
 
 schema {
   query: DevelopmentPlanningQuery
   mutation: DevelopmentPlanningMutation
+  subscription: DevelopmentPlanningSubscription
 }
 
 """
@@ -50,6 +51,10 @@ type DevelopmentPlanningMutation {
 type DevelopmentPlanningQuery {
   deliverable(id: ID = null): DeliverableType
   deliverables: [DeliverableType]
+}
+
+type DevelopmentPlanningSubscription {
+  deliverableAdded: DeliverableType
 }
 
 """

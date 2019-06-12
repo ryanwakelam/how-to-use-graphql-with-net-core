@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using System.Linq;
 using GraphQL.Types;
 
@@ -6,15 +5,15 @@ namespace DevelopmentPlanning.Schema
 {
     public class DevelopmentPlanningQuery : ObjectGraphType
     {
-        public DevelopmentPlanningQuery(IList<Deliverable> deliverables)
+        public DevelopmentPlanningQuery(DevelopmentPlanningRepo developmentPlanningRepo)
         {
-            Field<ListGraphType<DeliverableType>>("deliverables", resolve: context => deliverables);
+            Field<ListGraphType<DeliverableType>>("deliverables", resolve: context => developmentPlanningRepo.Deliverables);
             Field<DeliverableType>("deliverable",
                 arguments: new QueryArguments(new QueryArgument<IdGraphType> {Name = "id"}), resolve:
                 context =>
                 {
                     var id = context.GetArgument<string>("id");
-                    return deliverables.First(x => x.Id == id);
+                    return developmentPlanningRepo.Deliverables.First(x => x.Id == id);
                 });
         }
     }

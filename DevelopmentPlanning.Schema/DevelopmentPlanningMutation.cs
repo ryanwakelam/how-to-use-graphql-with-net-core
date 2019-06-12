@@ -1,12 +1,11 @@
 using System;
-using System.Collections.Generic;
 using GraphQL.Types;
 
 namespace DevelopmentPlanning.Schema
 {
     public class DevelopmentPlanningMutation : ObjectGraphType
     {
-        public DevelopmentPlanningMutation(IList<Deliverable> deliverables)
+        public DevelopmentPlanningMutation(DevelopmentPlanningRepo developmentPlanningRepo)
         {
             Field<DeliverableType>("createDeliverable",
                 arguments: new QueryArguments(new QueryArgument<NonNullGraphType<DeliverableInputType>>
@@ -15,7 +14,7 @@ namespace DevelopmentPlanning.Schema
                 {
                     var deliverable = context.GetArgument<Deliverable>("deliverable");
                     deliverable.Id = Guid.NewGuid().ToString();
-                    deliverables.Add(deliverable);
+                    developmentPlanningRepo.AddDeliverable(deliverable);
 
                     return deliverable;
                 });   
